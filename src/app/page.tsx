@@ -258,7 +258,7 @@ export default function FormPage() {
       <footer className="py-6 px-4 border-t border-white/10">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-sm text-gray-400">
-            © 2026 Artl Studion, LLC. All rights reserved.
+            © 2026 Artl Studio, LLC. All rights reserved.
           </p>
         </div>
       </footer>
