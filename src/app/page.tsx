@@ -1,0 +1,267 @@
+'use client'
+
+import { useState } from 'react'
+import { User, Mail, Phone, Calendar, Instagram, Upload, Image as ImageIcon } from 'lucide-react'
+
+export default function FormPage() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    birthDate: '',
+    instagram: '',
+    image: null as File | null
+  })
+
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setFormData(prev => ({ ...prev, image: file }))
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log('Form Data:', formData)
+    setIsSubmitted(true)
+    setTimeout(() => setIsSubmitted(false), 3000)
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#070E19' }}>
+      {/* Main Content */}
+      <main className="flex-grow flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-2xl">
+          {/* Logo Section */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center mb-6">
+              <div className="relative">
+                {/* Logo Image */}
+                  <img
+                    src="/Whole-Logo-White.png"
+                    alt="Artl Studio, LLC Logo"
+                    className="w-full h-full object-cover "
+                  />
+               
+              </div>
+            </div>
+          
+            <p className="text-lg md:text-xl" style={{ color: '#686EDA' }}>
+              Please fill in your information
+            </p>
+          </div>
+
+          {/* Form Card */}
+          <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-8 md:p-10 shadow-2xl border border-white/10">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Full Name - Three Parts */}
+              <div className="space-y-4">
+                <label className="block text-sm font-medium mb-2" style={{ color: '#15F3AF' }}>
+                  Full Name
+                </label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* First Name */}
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <input
+                      type="text"
+                      name="firstName"
+                      placeholder="First Name"
+                      required
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      className="w-full pl-12 pr-4 py-3 bg-white/10 border border-[#686EDA]/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#15F3AF] focus:border-transparent transition-all"
+                    />
+                  </div>
+                  {/* Middle Name */}
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <input
+                      type="text"
+                      name="middleName"
+                      placeholder="Middle Name"
+                      value={formData.middleName}
+                      onChange={handleInputChange}
+                      className="w-full pl-12 pr-4 py-3 bg-white/10 border border-[#686EDA]/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#15F3AF] focus:border-transparent transition-all"
+                    />
+                  </div>
+                  {/* Last Name */}
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <input
+                      type="text"
+                      name="lastName"
+                      placeholder="Last Name"
+                      required
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      className="w-full pl-12 pr-4 py-3 bg-white/10 border border-[#686EDA]/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#15F3AF] focus:border-transparent transition-all"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Phone Number */}
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: '#15F3AF' }}>
+                  Phone Number
+                </label>
+                <div className="relative">
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="+1 (555) 123-4567"
+                    required
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full pl-12 pr-4 py-3 bg-white/10 border border-[#686EDA]/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#15F3AF] focus:border-transparent transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: '#15F3AF' }}>
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="your.email@example.com"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full pl-12 pr-4 py-3 bg-white/10 border border-[#686EDA]/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#15F3AF] focus:border-transparent transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Birth Date */}
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: '#15F3AF' }}>
+                  Birth Date
+                </label>
+                <div className="relative">
+                  <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    type="date"
+                    name="birthDate"
+                    required
+                    value={formData.birthDate}
+                    onChange={handleInputChange}
+                    className="w-full pl-12 pr-4 py-3 bg-white/10 border border-[#686EDA]/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#15F3AF] focus:border-transparent transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Instagram Username */}
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: '#15F3AF' }}>
+                  Instagram Username
+                </label>
+                <div className="relative">
+                  <Instagram className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    type="text"
+                    name="instagram"
+                    placeholder="@username"
+                    required
+                    value={formData.instagram}
+                    onChange={handleInputChange}
+                    className="w-full pl-12 pr-4 py-3 bg-white/10 border border-[#686EDA]/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#15F3AF] focus:border-transparent transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Upload Image */}
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: '#15F3AF' }}>
+                  Upload Image
+                </label>
+                <div className="relative">
+                  <input
+                    type="file"
+                    id="image-upload"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                  <label
+                    htmlFor="image-upload"
+                    className={`flex items-center justify-center gap-4 w-full py-8 border-2 border-dashed rounded-xl cursor-pointer transition-all ${
+                      imagePreview
+                        ? 'border-[#15F3AF] bg-[#15F3AF]/5'
+                        : 'border-[#686EDA]/30 bg-white/5 hover:bg-white/10 hover:border-[#15F3AF]/50'
+                    }`}
+                  >
+                    {imagePreview ? (
+                      <div className="flex flex-col items-center gap-3">
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="w-32 h-32 object-cover rounded-lg shadow-lg"
+                        />
+                        <span className="text-sm" style={{ color: '#686EDA' }}>
+                          Click to change image
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-3">
+                        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-[#686EDA]/20">
+                          <ImageIcon className="h-8 w-8" style={{ color: '#686EDA' }} />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-white font-medium">Click to upload image</p>
+                          <p className="text-sm text-gray-400 mt-1">PNG, JPG up to 10MB</p>
+                        </div>
+                      </div>
+                    )}
+                  </label>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="w-full py-4 px-6 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg"
+                style={{
+                  background: 'linear-gradient(135deg, #686EDA 0%, #15F3AF 100%)',
+                  color: '#070E19'
+                }}
+              >
+                {isSubmitted ? '✓ Submitted Successfully!' : 'Submit Application'}
+              </button>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="py-6 px-4 border-t border-white/10">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-sm text-gray-400">
+            © 2026 Artl Studion, LLC. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+  )
+}
