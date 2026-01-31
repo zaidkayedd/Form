@@ -48,7 +48,7 @@ export default function FormPage() {
       <main className="flex-grow flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-2xl">
           {/* Logo Section */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-2">
             <div className="inline-flex items-center justify-center mb-6">
               <div className="relative">
                 {/* Logo Image */}
@@ -64,6 +64,18 @@ export default function FormPage() {
             <p className="text-lg md:text-xl" style={{ color: '#686EDA' }}>
               Please fill in your information
             </p>
+            <div className=' flex items-center justify-between mt-4'>
+                     <img
+                    src="/FIKA.png"
+                    alt="FIKA Logo"
+                    className="w-30"
+                  />
+                         <img
+                    src="/DrVision.png"
+                    alt="Dr Vision Logo"
+                    className="w-40"
+                  />
+            </div>
           </div>
 
           {/* Form Card */}
