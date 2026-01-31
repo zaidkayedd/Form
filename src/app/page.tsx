@@ -68,12 +68,12 @@ export default function FormPage() {
                      <img
                     src="/FIKA.png"
                     alt="FIKA Logo"
-                    className="w-30"
+                    className=" w-20 sm:w-30"
                   />
                          <img
                     src="/DrVision.png"
                     alt="Dr Vision Logo"
-                    className="w-40"
+                    className="w-30 sm:w-40"
                   />
             </div>
           </div>
