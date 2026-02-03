@@ -12,16 +12,16 @@ import {
 } from "lucide-react";
 
 export default function FormPage() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    birthDate: "",
-    instagram: "",
-    image: null as File | null,
-  });
+const initialFormData = {
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  birthDate: "",
+  instagram: "",
+  image: null as File | null,
+};
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -43,6 +43,9 @@ export default function FormPage() {
     }
   };
 
+const [formData, setFormData] = useState(initialFormData);
+const [fileInputKey, setFileInputKey] = useState(0);
+
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
@@ -52,16 +55,24 @@ const handleSubmit = async (e: React.FormEvent) => {
     if (value !== null) data.append(key, value as any);
   });
 
-  const res = await fetch('http://localhost:3000/api/form', {
-    method: 'POST',
+  const res = await fetch("http://localhost:3000/api/form", {
+    method: "POST",
     body: data,
   });
 
   if (res.ok) {
+    // ✅ show success
     setShowModal(true);
+
+    // ✅ reset form
+    setFormData(initialFormData);
+    setImagePreview(null);
+setFileInputKey((prev) => prev + 1);
+
+    // ✅ auto close modal
     setTimeout(() => setShowModal(false), 3000);
   } else {
-    alert('Something went wrong');
+    alert("Something went wrong");
   }
 };
 
@@ -250,6 +261,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 </label>
                 <div className="relative">
                   <input
+                  key={fileInputKey}
                     type="file"
                     id="image-upload"
                     accept="image/*"
