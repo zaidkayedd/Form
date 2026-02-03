@@ -43,15 +43,28 @@ export default function FormPage() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form Data:", formData);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
+  const data = new FormData();
+
+  Object.entries(formData).forEach(([key, value]) => {
+    if (value !== null) data.append(key, value as any);
+  });
+
+  const res = await fetch('http://localhost:3000/api/form', {
+    method: 'POST',
+    body: data,
+  });
+
+  if (res.ok) {
     setShowModal(true);
-
-    // Auto close after 3 seconds
     setTimeout(() => setShowModal(false), 3000);
-  };
+  } else {
+    alert('Something went wrong');
+  }
+};
+
 
   return (
     <div
