@@ -16,12 +16,20 @@ dotenv.config();
 
 const app = express();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5000",
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(morgan('dev'));
+app.use('/api/form', formRouter);
+
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 mongoose
@@ -37,7 +45,7 @@ app.use('/api/form', formRouter);
 
 app.get('/', (req, res) => res.json({ status: 'ok' }));
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 app.listen(port, () =>
   console.log(`Server listening on ${port}`)
 );
