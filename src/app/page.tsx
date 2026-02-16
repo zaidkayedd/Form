@@ -101,7 +101,7 @@ setFileInputKey((prev) => prev + 1);
             <p className="text-lg md:text-xl" style={{ color: "#686EDA" }}>
               Please fill in your information
             </p>
-            <div className=" flex items-center justify-between mt-4">
+            <div className=" flex items-center justify-center mt-4 gap-[1rem]">
               <img src="/FIKA.png" alt="FIKA Logo" className=" w-20 sm:w-30" />
               <img
                 src="/DrVision.png"
